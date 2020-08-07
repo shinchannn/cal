@@ -1,0 +1,118 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <div id="app">
+            <div class="calculator">
+                <input id="view">
+                </input>
+                <div class="keypad">
+                    <div class="function-keys">
+                        <button onclick="resetAll()">C</button>
+                        <button onclick="flip()">+/-</button>
+                        <button onclick="percentage()">%</button>
+                    </div>
+                    <div class="digits-keys">
+                        <button onclick="insert(7)">7</button>
+                        <button onclick="insert(8)">8</button>
+                        <button onclick="insert(9)">9</button>
+                        <br>
+                        <button onclick="insert(4)">4</button>
+                        <button onclick="insert(5)">5</button>
+                        <button onclick="insert(6)">6</button>
+                        <br>
+                        <button onclick="insert(1)">1</button>
+                        <button onclick="insert(2)">2</button>
+                        <button onclick="insert(3)">3</button>
+                        <br>
+                        <button onclick="insert(0)">0</button>
+                        <button onclick="insert('.')">.</button>
+                    </div>
+                    <div class="operator-keys">
+                        <button onclick="memo('÷')">÷</button>
+                        <button onclick="memo('×')">×</button>
+                        <button onclick="memo('-')">-</button>
+                        <button onclick="memo('+')">+</button>
+                        <button onclick="calculate()">=</button>
+                    </div>
+                </div>
+            </div>
+            <div class="log-panel">
+                Records:
+                <ul class="log-list">
+                    {% for record in records %}
+                        <li>{{ record.content }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <form hidden id="form" method="POST" enctype="multipart/form-data" > 
+  
+                <!-- Security token -->
+                {% csrf_token %} 
+              
+                <!-- Using the formset -->
+                {{ form.as_p }} 
+                  
+                <input id="submit" type="submit" value="Submit"> 
+            </form> 
+        </div>
+
+    <script>
+        var operand1 = null;
+        var operand2 = null;
+        var operator = null;
+        var textview = document.getElementById("view")
+
+        function insert(num) {
+            textview.value+=num;
+        }
+
+        function resetView() {
+            textview.value = ''
+        }
+
+        function calculate() {
+            if (operand1==null) return; //if nothing in the 
+            operand2 = textview.value;
+            if (operator=='+') {
+                textview.value =  Number(operand1) + Number(operand2);
+            } else if (operator=='-') {
+                textview.value = Number(operand1) - Number(operand2);
+            } else if (operator=='×') {
+                textview.value = Number(operand1) * Number(operand2);
+            } else if (operator=='÷') {
+                textview.value = Number(operand1) / Number(operand2);
+            }
+            console.log(10);
+            document.getElementById("id_content").value= (operand1==''?0:operand1) + ' ' + operator + ' ' + (operand2==''?0:operand2) + ' = ' + String(textview.value);
+            document.getElementById("submit").click();
+            resetAll();
+        }
+
+        function memo(op) {
+            if (operand1==null) {
+                operand1 = textview.value;
+            }
+            operator = op;
+            resetView();
+        }
+
+        function resetAll() {
+            resetView()
+            operand1 = null
+            operator = null
+        }
+
+        function percentage() {
+            textview.value = Number(textview.value)/100;
+        }
+
+        function flip() {
+            textview.value = -Number(textview.value);
+        }
+    </script>
+    </body>
+    
+</html>

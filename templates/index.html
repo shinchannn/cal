@@ -2,63 +2,67 @@
 <html>
     <head>
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        <div id="app">
-            <div class="calculator">
-                <input id="view">
-                </input>
-                <div class="keypad">
-                    <div class="function-keys">
-                        <button onclick="resetAll()">C</button>
-                        <button onclick="flip()">+/-</button>
-                        <button onclick="percentage()">%</button>
+        <div id="wrapper">
+            <div id="app">
+                <div class="calculator">
+                    <div class="calculator-display">
+                        <div id="view" class="auto-scaling-text" style="transform: scale(1, 1);">0</div>
                     </div>
-                    <div class="digits-keys">
-                        <button onclick="insert(7)">7</button>
-                        <button onclick="insert(8)">8</button>
-                        <button onclick="insert(9)">9</button>
-                        <br>
-                        <button onclick="insert(4)">4</button>
-                        <button onclick="insert(5)">5</button>
-                        <button onclick="insert(6)">6</button>
-                        <br>
-                        <button onclick="insert(1)">1</button>
-                        <button onclick="insert(2)">2</button>
-                        <button onclick="insert(3)">3</button>
-                        <br>
-                        <button onclick="insert(0)">0</button>
-                        <button onclick="insert('.')">.</button>
-                    </div>
-                    <div class="operator-keys">
-                        <button onclick="memo('÷')">÷</button>
-                        <button onclick="memo('×')">×</button>
-                        <button onclick="memo('-')">-</button>
-                        <button onclick="memo('+')">+</button>
-                        <button onclick="calculate()">=</button>
+
+                    <div class="calculator-keypad">
+                        <div class="input-keys">
+                            <div class="function-keys">
+                                <button class="calculator-key key-clear" onclick="resetAll()">C</button>
+                                <button class="calculator-key key-sign" onclick="flip()">±</button>
+                                <button class="calculator-key key-percent" onclick="percentage()">%</button>
+                            </div>
+                            <div class="digit-keys">
+                                <button class="calculator-key key-0" onclick="insert(0)">0</button>
+                                <button class="calculator-key key-dot" onclick="insert('.')">●</button>
+                                <button class="calculator-key key-1" onclick="insert(1)">1</button>
+                                <button class="calculator-key key-2" onclick="insert(2)">2</button>
+                                <button class="calculator-key key-3" onclick="insert(3)">3</button>
+                                <button class="calculator-key key-4" onclick="insert(4)">4</button>
+                                <button class="calculator-key key-5" onclick="insert(5)">5</button>
+                                <button class="calculator-key key-6" onclick="insert(6)">6</button>
+                                <button class="calculator-key key-7" onclick="insert(7)">7</button>
+                                <button class="calculator-key key-8" onclick="insert(8)">8</button>
+                                <button class="calculator-key key-9" onclick="insert(9)">9</button>
+                            </div>
+                        </div>
+                        <div class="operator-keys">
+                            <button class="calculator-key key-divide" onclick="memo('÷')">÷</button>
+                            <button class="calculator-key key-multiply" onclick="memo('×')">×</button>
+                            <button class="calculator-key key-subtract" onclick="memo('-')">-</button>
+                            <button class="calculator-key key-add" onclick="memo('+')">+</button>
+                            <button class="calculator-key key-equals" onclick="calculate()">=</button>
+                        </div>
+                        
                     </div>
                 </div>
-            </div>
-            <div class="log-panel">
-                Records:
-                <ul class="log-list">
-                    {% for record in records %}
-                        <li>{{ record.content }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <form hidden id="form" method="POST" enctype="multipart/form-data" > 
-  
-                <!-- Security token -->
-                {% csrf_token %} 
-              
-                <!-- Using the formset -->
-                {{ form.as_p }} 
+                <div class="log-panel">
+                    Records:
+                    <ul class="log-list">
+                        {% for record in records %}
+                            <li>{{ record.content }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <form hidden id="form" method="POST" enctype="multipart/form-data" > 
+      
+                    <!-- Security token -->
+                    {% csrf_token %} 
                   
-                <input id="submit" type="submit" value="Submit"> 
-            </form> 
+                    <!-- Using the formset -->
+                    {{ form.as_p }} 
+                      
+                    <input id="submit" type="submit" value="Submit"> 
+                </form> 
+            </div>
         </div>
-
     <script>
         var operand1 = null;
         var operand2 = null;

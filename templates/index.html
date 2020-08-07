@@ -9,7 +9,7 @@
             <div id="app">
                 <div class="calculator">
                     <div class="calculator-display">
-                        <div id="view" class="auto-scaling-text" style="transform: scale(1, 1);">0</div>
+                        <div id="view" class="auto-scaling-text" style="transform: scale(1, 1);"></div>
                     </div>
 
                     <div class="calculator-keypad">
@@ -70,34 +70,34 @@
         var textview = document.getElementById("view")
 
         function insert(num) {
-            textview.value+=num;
+            console.log(textview.innerHTML);
+            textview.innerHTML+=num;
         }
 
         function resetView() {
-            textview.value = ''
+            textview.innerHTML = ''
         }
 
         function calculate() {
             if (operand1==null) return; //if nothing in the 
-            operand2 = textview.value;
+            operand2 = textview.innerHTML;
             if (operator=='+') {
-                textview.value =  Number(operand1) + Number(operand2);
+                textview.innerHTML =  Number(operand1) + Number(operand2);
             } else if (operator=='-') {
-                textview.value = Number(operand1) - Number(operand2);
+                textview.innerHTML = Number(operand1) - Number(operand2);
             } else if (operator=='×') {
-                textview.value = Number(operand1) * Number(operand2);
+                textview.innerHTML = Number(operand1) * Number(operand2);
             } else if (operator=='÷') {
-                textview.value = Number(operand1) / Number(operand2);
+                textview.innerHTML = Number(operand1) / Number(operand2);
             }
-            console.log(10);
-            document.getElementById("id_content").value= (operand1==''?0:operand1) + ' ' + operator + ' ' + (operand2==''?0:operand2) + ' = ' + String(textview.value);
+            document.getElementById("id_content").value= (operand1==''?0:operand1) + ' ' + operator + ' ' + (operand2==''?0:operand2) + ' = ' + String(textview.innerHTML);
             document.getElementById("submit").click();
             resetAll();
         }
 
         function memo(op) {
             if (operand1==null) {
-                operand1 = textview.value;
+                operand1 = textview.innerHTML;
             }
             operator = op;
             resetView();
@@ -110,11 +110,11 @@
         }
 
         function percentage() {
-            textview.value = Number(textview.value)/100;
+            textview.innerHTML = Number(textview.innerHTML)/100;
         }
 
         function flip() {
-            textview.value = -Number(textview.value);
+            textview.innerHTML = -Number(textview.innerHTML);
         }
     </script>
     </body>

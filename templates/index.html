@@ -63,7 +63,6 @@
         var textview = document.getElementById("view")
 
         function insert(num) {
-            console.log(textview.innerHTML);
             textview.innerHTML+=num;
         }
 
@@ -84,13 +83,7 @@
                 textview.innerHTML = Number(operand1) / Number(operand2);
             }
             document.getElementsByName("temp")[0].value = (operand1==''?0:operand1) + ' ' + operator + ' ' + (operand2==''?0:operand2) + ' = ' + String(textview.innerHTML);
-            console.log("ttt");
-            // $('#form').submit(function(e){
-            //     $.post("{% url 'save' %}", $(this).serialize(), function(data){});
-            //     e.preventDefault();
-            // });
             $("#form").submit();
-            console.log("yyy");
             resetAll();
         }
 

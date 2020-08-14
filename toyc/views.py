@@ -13,7 +13,7 @@ def dashboard(request):
         return render(request, "index.html")
 
 def records(request):
-    latest_records_list = list(Record.objects.values())
+    latest_records_list = list(Record.objects.values().order_by('-posted_on')[0:10])
     #latest_records_list = list(Record.objects.all().order_by('-posted_on')[0:10])
     #template = loader.get_template("index.html")
     #context = {'latest_records_list': latest_records_list}

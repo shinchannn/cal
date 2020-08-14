@@ -49,6 +49,7 @@
                     <div class="log-panel">
                         Records:
                         <ul class="log-list">
+                            Loading...
                         </ul>
                     </div>
                     <input hidden name="temp">
@@ -118,7 +119,7 @@
                 function(data){
                     var txt = '';
                     for (var key in data){
-                        txt=txt + data[key]["content"] + "<br>";
+                        txt=txt + "<li>" + data[key]["content"] +  ", " + data[key]["posted_on"] + "</li><br>";
                     }
                     $(".log-list").html(txt);
                 })

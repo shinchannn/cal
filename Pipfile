@@ -10,6 +10,8 @@ pylint = "*"
 gunicorn = "*"
 django = "*"
 whitenoise = "*"
+channels = "*"
+docker = "*"
 
 [requires]
 python_version = "3.6"

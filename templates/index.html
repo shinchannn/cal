@@ -3,10 +3,10 @@
     <head>
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
-        <form method="POST" id="form">
+        <form id="form">
             {% csrf_token %}
             <div id="wrapper">
                 <div id="app">
@@ -84,7 +84,13 @@
                 textview.innerHTML = Number(operand1) / Number(operand2);
             }
             document.getElementsByName("temp")[0].value = (operand1==''?0:operand1) + ' ' + operator + ' ' + (operand2==''?0:operand2) + ' = ' + String(textview.innerHTML);
+            console.log("ttt");
+            // $('#form').submit(function(e){
+            //     $.post("{% url 'save' %}", $(this).serialize(), function(data){});
+            //     e.preventDefault();
+            // });
             $("#form").submit();
+            console.log("yyy");
             resetAll();
         }
 
@@ -111,6 +117,10 @@
         }
 
         $(document).ready(function(){
+            $("#form").submit(function(e){
+                $.post("{% url 'save' %}",  $(this).serialize());
+                e.preventDefault();
+            });
             setInterval("polling()", 1000);
         })
         function polling() {
